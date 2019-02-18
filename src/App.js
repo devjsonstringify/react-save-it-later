@@ -1,28 +1,18 @@
 import React, { Component } from 'react'
 import './App.css'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Container from './common/container'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import Home from './common/home'
 import NotFound from './common/404-page'
-import CardList from './components/card-list'
-import CardItem from './components/card-item'
+import User from './components/users/item'
 
-class App extends Component {
+export default class extends Component {
 	render() {
-		const Home = () => {
-			return (
-				<Container attr='main-content'>
-					<h1>Who are you looking for today, Zoe?</h1>
-					<CardList />
-				</Container>
-			)
-		}
-
 		return (
 			<Router>
 				<React.Fragment>
 					<Switch>
 						<Route path='/' exact component={Home} />
-						<Route path='/users/:id' component={CardItem} />
+						<Route path='/users/:id' component={User} /> />
 						<Route component={NotFound} />
 					</Switch>
 				</React.Fragment>
@@ -30,5 +20,3 @@ class App extends Component {
 		)
 	}
 }
-
-export default App
