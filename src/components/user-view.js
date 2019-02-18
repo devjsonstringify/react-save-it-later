@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserView = ({ data }) => {
+const UserView = ({ users }) => {
 	const {
 		name,
 		username,
@@ -15,7 +15,7 @@ const UserView = ({ data }) => {
 		phone,
 		website,
 		company: { name: cname, catchPhrase, bs }
-	} = data
+	} = users
 
 	return (
 		<React.Fragment>

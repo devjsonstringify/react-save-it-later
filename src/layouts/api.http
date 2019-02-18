@@ -1,0 +1,26 @@
+
+POCKET API 
+curl https://getpocket.com/v3/oauth/request --insecure -X POST -H "Content-Type: application/json" -H "X-Accept: application/json" -d "{\"consumer_key\":\"83908-8d70c19b7d191dec195fe678\",\"redirect_uri\":\"https://laughing-leavitt-3c40ff.netlify.com\"}"
+
+consumer_key: 83908-8d70c19b7d191dec195fe678
+access-token:   
+
+
+
+STEP 4. CONVERT YOUR REQUEST TOKEN INTO A POCKET ACCESS TOKEN
+{"f1d2240f-921e-530b-b834-477c9d","username":"pfcglen"}
+
+
+Useful links:
+https://www.jamesfmackenzie.com/getting-started-with-the-pocket-developer-api/
+
+
+
+curl https://getpocket.com/v3/get --insecure -X POST -H "Content-Type: application/json" -H "X-Accept: application/json" -d "{\"consumer_key\":\"83908-8d70c19b7d191dec195fe678\", \"access_token\":\"f1d2240f-921e-530b-b834-477c9d\"}"
+
+
+\
+list {
+    item: {}
+    
+}
