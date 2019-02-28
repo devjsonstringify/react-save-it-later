@@ -1,32 +1,36 @@
 import React from 'react'
-import WithFetch from '../../HOC/api-request'
-import View from './fetch-list'
+import Content from './view-Content'
+import styled from 'styled-components'
+import Container from '../../../common/container'
+import SideBar from '../../../common/sidebar'
 
-const List = ({ users: { list } }) => {
-	const List = Object.values(list)
+const List = (props) => {
+	const { users } = props
+	const data = Object.values(users)
+	const List = styled.ul`
+		display: flex;
+		flex-wrap: wrap;
+		padding: 0;
+		margin: 0 auto;
+		max-width: calc(100vw - 10vw);
+		list-style: none;
+		align-items: stretch;
+	`
 
 	return (
 		<React.Fragment>
-			<ul
-				style={{
-					display: 'flex',
-					flexWrap: 'wrap',
-					padding: '0',
-					margin: '0 auto',
-					maxWidth: 'calc(100vw - 10vw)',
-					listStyle: 'none',
-					alignItems: 'stretch'
-				}}>
-				{List.map((keys) => (
-					<View key={keys.item_id} {...keys} />
-				))}
-			</ul>
+			<Container>
+				<Container>
+					<SideBar {...props} />
+				</Container>
+				<List>
+					{data.map((keys) => (
+						<Content key={keys.item_id} {...keys} />
+					))}
+				</List>
+			</Container>
 		</React.Fragment>
 	)
 }
-const withRequest = WithFetch(
-	() => `https://cors-anywhere.herokuapp.com/https://getpocket.com/v3/get`,
-	`POST`
-)
-const WrapComponent = withRequest(List)
-export default WrapComponent
+
+export default List

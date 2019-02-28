@@ -25,6 +25,9 @@ export default (props) => {
 					<BulletList />
 				</li>
 			</ul>
+			<p style={{ textAlign: 'center' }}>
+				<span>Please wait, still loading....</span>
+			</p>
 		</React.Fragment>
 	)
 }
