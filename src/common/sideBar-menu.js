@@ -17,7 +17,7 @@ export default (props) => {
 		<List>
 			<Item handleClick={getMyList} text='MyList' />
 			<Item handleClick={getArticle} text='Articles' />
-			<Item handleClick={getFavorate} text='Favorates' />n
+			<Item handleClick={getFavorate} text='Favorates' />
 			<Item handleClick={getArchive} text='Archive' />
 			<Tags users={Object.values(users)} />
 		</List>

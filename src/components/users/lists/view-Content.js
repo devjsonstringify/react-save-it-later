@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Image from '../../../common/image'
+import Content from '../../../common/content';
 
 export default (props) => {
 	const { resolved_title, resolved_url, tags } = props
@@ -22,24 +23,7 @@ export default (props) => {
 			{resolved_title ? (
 				<UserList>
 					<Image {...props} />
-					<h5
-						style={{
-							margin: '0',
-							padding: '1em',
-							textAlign: 'justify',
-							wordBreak: 'break-word'
-						}}>
-						<a
-							href={resolved_url}
-							style={{
-								color: '#000',
-								textDecoration: 'none',
-								textTransform: 'uppercase',
-								wordBreak: 'break-word'
-							}}>
-							{resolved_title}
-						</a>
-					</h5>
+					<Content {...props} />
 				</UserList>
 			) : null}
 		</React.Fragment>
