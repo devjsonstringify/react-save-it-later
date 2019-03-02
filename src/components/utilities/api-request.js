@@ -16,7 +16,6 @@ export default async (params) => {
 			Options
 		)
 		const users = await response.json()
-		localStorage.setItem('users', JSON.stringify(users))
 		return users
 	} catch (error) {
 		console.log('error')

@@ -1,45 +1,36 @@
 import React from 'react'
 import styled from 'styled-components'
 import Image from '../../../common/image'
+import Content from '../../../common/content'
 
 export default (props) => {
-	const { resolved_title, resolved_url, tags } = props
+	const { resolved_title, excerpt } = props
 
 	const UserList = styled.li`
-		flex-basis: 23%;
+		flex-basis: 20%;
 		margin: 5px;
 		position: relative;
-		border: 1px solid #ededf0;
+		border-left: 4px solid rgba(255, 255, 25, 0);
 		border-bottom: 1px solid #dcdce0;
 		margin: 10px;
 		background-color: #fff;
-		padding: 0 0 0.78em 0;
 		border-radius: 3px;
+		padding: 1% 1% 0;
+		min-height: 250px;
+
+		&:hover {
+			background-color: #e5e5e5;
+			border-left: 4px solid #fca211;
+		}
 	`
 
 	return (
 		<React.Fragment>
-			{resolved_title ? (
+			{excerpt ? (
 				<UserList>
-					<Image {...props} />
-					<h5
-						style={{
-							margin: '0',
-							padding: '1em',
-							textAlign: 'justify',
-							wordBreak: 'break-word'
-						}}>
-						<a
-							href={resolved_url}
-							style={{
-								color: '#000',
-								textDecoration: 'none',
-								textTransform: 'uppercase',
-								wordBreak: 'break-word'
-							}}>
-							{resolved_title}
-						</a>
-					</h5>
+					{/* Disabled image components */}
+					{/* <Image {...props} /> */}
+					<Content {...props} />
 				</UserList>
 			) : null}
 		</React.Fragment>
