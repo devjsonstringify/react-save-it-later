@@ -16,7 +16,10 @@ export default class extends Component {
 
 	componentDidMount() {
 		this.getMyList()
-		console.log(JSON.stringify(Object.values(this.state.users), null, 2))
+		const ExtractLocalStorageUser = localStorage.getItem('users')
+			? JSON.parse(localStorage.getItem('users'))
+			: []
+		// console.log('local' + JSON.stringify(ExtractLocalStorageUser, null, 2))
 	}
 
 	getMyList = () => {
@@ -29,10 +32,13 @@ export default class extends Component {
 			detailType: 'complete'
 		})
 		Api(req).then((users) =>
-			this.setState({
-				users: users.list,
-				isLoading: false
-			})
+			this.setState(
+				{
+					users: users.list,
+					isLoading: false
+				},
+				localStorage.setItem('users', JSON.stringify(users))
+			)
 		)
 	}
 
@@ -67,22 +73,27 @@ export default class extends Component {
 	}
 
 	getArticle = () => {
-		this.setState({ isLoading: true })
-		const req = JSON.stringify({
-			consumer_key: '83908-8d70c19b7d191dec195fe678',
-			access_token: 'f1d2240f-921e-530b-b834-477c9d',
-			is_article: 1
-		})
-		Api(req).then((users) =>
-			this.setState({
-				users: users.list,
-				isLoading: false
-			})
-		)
+		// this.setState({ isLoading: true })
+		// const req = JSON.stringify({
+		// 	consumer_key: '83908-8d70c19b7d191dec195fe678',
+		// 	access_token: 'f1d2240f-921e-530b-b834-477c9d',
+		// 	is_article: 1
+		// })
+		// Api(req).then((users) =>
+		// 	this.setState({
+		// 		users: users.list,
+		// 		isLoading: false
+		// 	})
+		// )
+
+		const ExtractLocalStorageUser = localStorage.getItem('users')
+			? JSON.parse(localStorage.getItem('users'))
+			: []
+		console.table('local' + JSON.stringify(ExtractLocalStorageUser, null, 2))
 	}
 
 	render() {
-		console.log(JSON.stringify(this.state.users, null, 2))
+		// console.log(JSON.stringify(this.state.users, null, 2))
 		if (this.state.isLoading) {
 			return <Loader />
 		} else {

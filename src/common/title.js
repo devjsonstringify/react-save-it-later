@@ -18,9 +18,12 @@ export default (props) => {
 	`
 
 	return (
-		<Div>
-			<H3>{resolved_title}</H3>
-			<Para>{trimmedString} ...</Para>
-		</Div>
+		<React.Fragment>
+			{excerpt ? (
+				<Div>
+					<H3>{resolved_title}</H3> <Para>{trimmedString} ...</Para>
+				</Div>
+			) : null}
+		</React.Fragment>
 	)
 }

@@ -4,7 +4,7 @@ import Image from '../../../common/image'
 import Content from '../../../common/content'
 
 export default (props) => {
-	const { resolved_title, resolved_url, tags } = props
+	const { resolved_title, excerpt } = props
 
 	const UserList = styled.li`
 		flex-basis: 20%;
@@ -26,7 +26,7 @@ export default (props) => {
 
 	return (
 		<React.Fragment>
-			{resolved_title ? (
+			{excerpt ? (
 				<UserList>
 					{/* Disabled image components */}
 					{/* <Image {...props} /> */}
