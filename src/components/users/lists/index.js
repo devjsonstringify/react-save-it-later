@@ -15,6 +15,7 @@ const List = (props) => {
 		max-width: calc(100vw - 10vw);
 		list-style: none;
 		align-items: stretch;
+		position: relative;
 	`
 
 	return (

@@ -1,25 +1,28 @@
 import React from 'react'
-import Author from './author'
-import FavIcons from './fav-icons'
+import styled from 'styled-components'
+import Title from './title'
+import Author from './view-author'
 
 export default (props) => {
-	const { resolved_title, resolved_url, excerpt, authors } = props
-	const trimmedString = excerpt.substring(0, 100)
+	//Styled component
+	const Li = styled.div`
+		position: ${(props) => (props.absolute ? 'absolute' : 'relative')};
+		left: ${(props) => (props.left ? props.left : null)};
+		right: ${(props) => (props.right ? props.right : null)};
+		bottom: ${(props) => (props.bottom ? props.bottom : null)};
+		padding: ${(props) => (props.padding ? props.padding : null)};
+		width: 100%;
+		box-sizing: border-box;
+		color: ${(props) => (props.color ? props.color : '#666')};
+	`
 	return (
-		<div>
-			<h5>{resolved_title}</h5>
-			<p>{trimmedString} ...</p>
-			<ul>
-				<li>
-					<a href={resolved_url}>
-						<span>view &#8599;</span>
-					</a>
-				</li>
-				<li>{!authors ? <p>No Author Found</p> : <Author {...props} />}</li>
-				<li>
-					<FavIcons {...props} />
-				</li>
-			</ul>
-		</div>
+		<React.Fragment>
+			<Li color='#17243D'>
+				<Title {...props} />
+			</Li>
+			<Li absolute bottom='0' padding='2%' left='1%'>
+				<Author {...props} />
+			</Li>
+		</React.Fragment>
 	)
 }
