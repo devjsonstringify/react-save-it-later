@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Tags from '../components/users/lists/tags'
 
 export default (props) => {
-	const { getMyList, getFavorate, getArchive, getArticle, users } = props
+	const { getList, getFavorate, getArchive, getArticle, users } = props
 	const List = styled.nav`
 		list-style: none;
 		padding: 0;
@@ -15,7 +15,7 @@ export default (props) => {
 	`
 	return (
 		<List>
-			<Item handleClick={getMyList} text='MyList' />
+			<Item handleClick={getList} text='MyList' />
 			<Item handleClick={getArticle} text='Articles' />
 			<Item handleClick={getFavorate} text='Favorates' />
 			<Item handleClick={getArchive} text='Archive' />
