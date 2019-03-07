@@ -14,16 +14,19 @@ export default class extends Component {
 		}
 	}
 
+	//* TODO: If localstorage is not empty set.state
 	componentDidMount() {
-		this.getMyList()
-		const ExtractLocalStorageUser = localStorage.getItem('users')
-			? JSON.parse(localStorage.getItem('users'))
-			: []
-		// console.log('local' + JSON.stringify(ExtractLocalStorageUser, null, 2))
+		if (localStorage.getItem('users')) {
+			this.setState({
+				users: JSON.parse(localStorage.getItem('users')),
+				isLoading: false
+			})
+		} else {
+			this.getMyList()
+		}
 	}
 
 	getMyList = () => {
-		this.setState({ isLoading: true })
 		const req = JSON.stringify({
 			consumer_key: '83908-8d70c19b7d191dec195fe678',
 			access_token: 'f1d2240f-921e-530b-b834-477c9d',
@@ -32,66 +35,55 @@ export default class extends Component {
 			detailType: 'complete'
 		})
 		Api(req).then((users) =>
-			this.setState(
-				{
-					users: users.list,
-					isLoading: false
-				},
-				localStorage.setItem('users', JSON.stringify(users))
-			)
-		)
-	}
-
-	getFavorate = () => {
-		this.setState({ isLoading: true })
-		const req = JSON.stringify({
-			consumer_key: '83908-8d70c19b7d191dec195fe678',
-			access_token: 'f1d2240f-921e-530b-b834-477c9d',
-			favorite: 1
-		})
-		Api(req).then((users) =>
 			this.setState({
-				users: users.list,
+				users,
 				isLoading: false
 			})
 		)
 	}
 
-	getArchive = () => {
+	// !FIX: Loading is not working when clicking the buttons
+
+	getFavorate = async () => {
+		//* Get localstorage then make a copy of it then filter
 		this.setState({ isLoading: true })
-		const req = JSON.stringify({
-			consumer_key: '83908-8d70c19b7d191dec195fe678',
-			access_token: 'f1d2240f-921e-530b-b834-477c9d',
-			state: 'archive'
-		})
-		Api(req).then((users) =>
-			this.setState({
-				users: users.list,
-				isLoading: false
-			})
+		const localCopy = await JSON.parse(localStorage.getItem('users'))
+		const users = Object.values(localCopy)
+			.map((key) => key)
+			.filter((key) => key.favorite === '1')
+		this.setState({ users, isLoading: false })
+	}
+
+	getArchive = async () => {
+		//* Get localstorage then make a copy of it then filter
+		this.setState({ isLoading: true })
+		const localCopy = await JSON.parse(localStorage.getItem('users'))
+		const users = Object.values(localCopy)
+			.map((key) => key)
+			.filter((key) => key.status == '1')
+		this.setState({ users, isLoading: false })
+	}
+
+	getArticle = async () => {
+		//* Get localstorage then make a copy of it then filter
+		this.setState({ isLoading: true }, () =>
+			console.log(JSON.stringify(this.state.isLoading, null, 2))
 		)
+
+		const localCopy = await JSON.parse(localStorage.getItem('users'))
+		const users = Object.values(localCopy)
+			.map((key) => key)
+			.filter((key) => key.is_article == '1')
+		this.setState({ users, isLoading: false })
 	}
 
-	getArticle = () => {
-		// this.setState({ isLoading: true })
-		// const req = JSON.stringify({
-		// 	consumer_key: '83908-8d70c19b7d191dec195fe678',
-		// 	access_token: 'f1d2240f-921e-530b-b834-477c9d',
-		// 	is_article: 1
-		// })
-		// Api(req).then((users) =>
-		// 	this.setState({
-		// 		users: users.list,
-		// 		isLoading: false
-		// 	})
-		// )
-
-		const ExtractLocalStorageUser = localStorage.getItem('users')
-			? JSON.parse(localStorage.getItem('users'))
-			: []
-		console.table('local' + JSON.stringify(ExtractLocalStorageUser, null, 2))
+	getList = async () => {
+		//* Get localstorage then make a copy of it then filter
+		this.setState({ isLoading: true })
+		const localCopy = await JSON.parse(localStorage.getItem('users'))
+		const users = Object.values(localCopy).map((key) => key)
+		this.setState({ users, isLoading: false })
 	}
-
 	render() {
 		// console.log(JSON.stringify(this.state.users, null, 2))
 		if (this.state.isLoading) {
@@ -99,13 +91,11 @@ export default class extends Component {
 		} else {
 			return (
 				<React.Fragment>
-					{!this.state.users ? (
-						<Loader />
-					) : (
+					{this.state.users && (
 						<Users
 							users={this.state.users}
 							{...this.props}
-							getMyList={this.getMyList}
+							getList={this.getList}
 							getFavorate={this.getFavorate}
 							getArchive={this.getArchive}
 							getArticle={this.getArticle}
