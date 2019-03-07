@@ -21,9 +21,9 @@ export default class extends Component {
 				users: JSON.parse(localStorage.getItem('users')),
 				isLoading: false
 			})
-		} else {
-			this.getMyList()
 		}
+
+		this.getMyList()
 	}
 
 	getMyList = () => {
@@ -44,48 +44,39 @@ export default class extends Component {
 
 	// !FIX: Loading is not working when clicking the buttons
 
-	getFavorate = async () => {
-		//* Get localstorage then make a copy of it then filter
-		this.setState({ isLoading: true })
-		const localCopy = await JSON.parse(localStorage.getItem('users'))
-		const users = Object.values(localCopy)
+	getFavorate = () => {
+		const users = Object.values(JSON.parse(localStorage.getItem('users')))
 			.map((key) => key)
 			.filter((key) => key.favorite === '1')
 		this.setState({ users, isLoading: false })
 	}
 
-	getArchive = async () => {
+	getArchive = () => {
 		//* Get localstorage then make a copy of it then filter
-		this.setState({ isLoading: true })
-		const localCopy = await JSON.parse(localStorage.getItem('users'))
-		const users = Object.values(localCopy)
+		const users = Object.values(JSON.parse(localStorage.getItem('users')))
 			.map((key) => key)
 			.filter((key) => key.status == '1')
 		this.setState({ users, isLoading: false })
 	}
 
-	getArticle = async () => {
+	getArticle = () => {
 		//* Get localstorage then make a copy of it then filter
-		this.setState({ isLoading: true }, () =>
-			console.log(JSON.stringify(this.state.isLoading, null, 2))
-		)
-
-		const localCopy = await JSON.parse(localStorage.getItem('users'))
-		const users = Object.values(localCopy)
+		const users = Object.values(JSON.parse(localStorage.getItem('users')))
 			.map((key) => key)
 			.filter((key) => key.is_article == '1')
 		this.setState({ users, isLoading: false })
 	}
 
-	getList = async () => {
+	getList = () => {
 		//* Get localstorage then make a copy of it then filter
-		this.setState({ isLoading: true })
-		const localCopy = await JSON.parse(localStorage.getItem('users'))
-		const users = Object.values(localCopy).map((key) => key)
-		this.setState({ users, isLoading: false })
+		this.setState({
+			users: Object.values(JSON.parse(localStorage.getItem('users'))).map(
+				(key) => key
+			)
+		})
 	}
+
 	render() {
-		// console.log(JSON.stringify(this.state.users, null, 2))
 		if (this.state.isLoading) {
 			return <Loader />
 		} else {
@@ -93,8 +84,8 @@ export default class extends Component {
 				<React.Fragment>
 					{this.state.users && (
 						<Users
-							users={this.state.users}
 							{...this.props}
+							users={this.state.users}
 							getList={this.getList}
 							getFavorate={this.getFavorate}
 							getArchive={this.getArchive}

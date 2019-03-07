@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 export default (props) => {
-	const { resolved_title, excerpt } = props
+	const { resolved_title, excerpt, resolved_url } = props
 	const trimmedString = excerpt.substring(0, 100)
 
 	// Styled Component
@@ -21,7 +21,10 @@ export default (props) => {
 		<React.Fragment>
 			{excerpt ? (
 				<Div>
-					<H3>{resolved_title}</H3> <Para>{trimmedString} ...</Para>
+					<a href={resolved_url}>
+						<H3>{resolved_title}</H3>
+					</a>
+					<Para>{trimmedString} ...</Para>
 				</Div>
 			) : null}
 		</React.Fragment>
